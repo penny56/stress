@@ -19,9 +19,9 @@ If you want to add servers in the script, add the IPs of the servers into ips.cf
 
 For scp workload, make sure the original could ssh to the dest with out login.
 
-For example -- run the workloads:
+###### For example -- run the workloads:
 
-[root@zp93l7 longevityWLs]# ./longevityWLs.sh -r
+    [root@zp93l7 longevityWLs]# ./longevityWLs.sh -r
     run >>> 10.20.103.81, start workloads >>>
 
     start dd ...
@@ -33,7 +33,7 @@ For example -- run the workloads:
     start scp ...
     start yes ...
 
-For example -- quit the workloads:
+###### For example -- quit the workloads:
 
     [root@zp93l7 longevityWLs]# ./longevityWLs.sh -q
     quit >>> 10.20.103.81, kill workloads >>>

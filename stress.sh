@@ -11,27 +11,29 @@ function usage() {
 
 function run() {
     for ip in ${ips[@]}; do
-        echo "run >>> $ip, start workloads >>>"
-        # & in the end to go back immidiatelly after exec script in remote machine
-        ssh root@$ip 'exec bash' < yes.sh &
-        ssh root@$ip 'exec bash' < dd.sh &
-        ssh root@$ip 'exec bash' < scp.sh &
-        echo
-        sleep 1
+        # only get the string start with digit, ignore the comments
+        if [[ $ip =~ ^[0-9] ]]; then
+            echo "run >>> $ip, start workloads >>>"
+            # & in the end to go back immidiatelly after exec script in remote machine
+            ssh root@$ip 'exec bash' < yes.sh &
+            ssh root@$ip 'exec bash' < dd.sh &
+            ssh root@$ip 'exec bash' < scp.sh &
+            echo
+            sleep 1
+        fi
     done
 }
 
 function quit () {
     for ip in ${ips[@]}; do
         echo "quit >>> $ip, kill workloads >>>"
-        ssh root@$ip 'exec bash' < killwls.sh
+        ssh root@$ip 'exec bash' < stop.sh
         echo
         sleep 1
     done
 }
 
-declare -a ips
-readarray ips < "ips.cfg"
+ips=($(cat ips.cfg))
 
 if [[ $# == 1 ]]; then
     case $1 in
